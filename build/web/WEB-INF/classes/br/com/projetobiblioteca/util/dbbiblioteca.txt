@@ -1,0 +1,98 @@
+CREATE TABLE pessoa (
+	idpessoa SERIAL NOT NULL,
+	nomepessoa varchar(255) NOT NULL,
+	cpfpessoa varchar(15) NOT NULL,
+	telefonepessoa varchar(15) NOT NULL,
+	emailpessoa varchar(255) NOT NULL,
+	senhapessoa varchar(255) NOT NULL,
+	CONSTRAINT pk_pessoa PRIMARY KEY (idpessoa)
+);
+
+CREATE TABLE usuario (
+	idusuario SERIAL NOT NULL,
+	estadousuario char(2) NOT NULL,
+	cidadeusuario varchar(255) NOT NULL,
+	bairrousuario varchar(255) NOT NULL,
+	ruausuario varchar(255) NOT NULL,
+	numerousuario varchar(10) NOT NULL,
+	cepusuario char(10) NOT NULL,
+	idpessoa INTEGER,
+	CONSTRAINT pk_usuario PRIMARY KEY (idusuario),
+	CONSTRAINT fk_usuario_pessoa FOREIGN KEY (idpessoa) REFERENCES pessoa (idpessoa)
+);
+
+CREATE TABLE biblioteca (
+	idbiblioteca SERIAL NOT NULL,
+	nomebiblioteca varchar(255) NOT NULL,
+	estadobiblioteca char(2) NOT NULL,
+	cidadebiblioteca varchar(255) NOT NULL,
+	bairrobiblioteca varchar(255) NOT NULL,
+	ruabiblioteca varchar(255) NOT NULL,
+	numerobiblioteca varchar(10) NOT NULL,
+	cepbiblioteca char(10) NOT NULL,
+	telefonebiblioteca varchar(15) NOT NULL,
+	emailbiblioteca varchar(255) NOT NULL,
+	CONSTRAINT pk_biblioteca PRIMARY KEY (idbiblioteca)
+);
+
+CREATE TABLE bibliotecario (
+	idbibliotecario SERIAL NOT NULL,
+	idpessoa INTEGER,
+	idbiblioteca INTEGER,
+	CONSTRAINT pk_bibliotecario PRIMARY KEY (idbibliotecario),
+	CONSTRAINT fk_bibliotecario_pessoa FOREIGN KEY (idpessoa) REFERENCES pessoa (idpessoa),
+	CONSTRAINT fk_bibliotecario_biblioteca FOREIGN KEY (idbiblioteca) REFERENCES biblioteca (idbiblioteca)
+
+);
+
+CREATE TABLE livro (
+	idlivro SERIAL NOT NULL,
+	titulolivro VARCHAR(255) NOT NULL,
+	autorlivro VARCHAR(255) NOT NULL,
+	editoralivro VARCHAR(255) NOT NULL,
+	anolivro VARCHAR(4) NOT NULL,
+	isbnlivro VARCHAR(255) NOT NULL,
+	valorlivro NUMERIC NOT NULL,
+	quantidadelivro INT NOT NULL,
+	idbiblioteca INTEGER,
+	CONSTRAINT pk_livro PRIMARY KEY (idlivro),
+	CONSTRAINT fk_livro_biblioteca FOREIGN KEY (idbiblioteca) REFERENCES biblioteca (idbiblioteca)
+);
+
+CREATE TABLE genero (
+	idgenero SERIAL NOT NULL,
+	nomegenero CHARACTER VARYING(100) NOT NULL,
+	CONSTRAINT pk_genero PRIMARY KEY (idgenero)
+);
+
+
+CREATE TABLE generolivro (
+	idlivro INTEGER,
+	idgenero INTEGER,
+	CONSTRAINT pk_generolivro PRIMARY KEY (idlivro, idgenero),
+	CONSTRAINT fk_generolivro_livro FOREIGN KEY (idlivro) REFERENCES livro (idlivro),
+	CONSTRAINT fk_generolivro_genero FOREIGN KEY (idgenero) REFERENCES genero (idgenero)
+);
+
+CREATE TABLE compra (
+	idcompra SERIAL NOT NULL,
+	valorcompra NUMERIC NOT NULL,
+	quantidadecompra INT NOT NULL,
+	idlivro INTEGER,
+	idusuario INTEGER,
+	CONSTRAINT pk_compra PRIMARY KEY (idcompra),
+	CONSTRAINT fk_compra_livro FOREIGN KEY (idlivro) REFERENCES livro (idlivro),
+	CONSTRAINT fk_compra_usuario FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
+);
+
+CREATE TABLE admin (
+	idadmin SERIAL NOT NULL,
+	loginadmin VARCHAR(255) NOT NULL,
+	senhaadmin VARCHAR(255) NOT NULL,
+	CONSTRAINT pk_admin PRIMARY KEY (idadmin)
+);
+
+INSERT INTO genero (idgenero, nomegenero) VALUES (1, 'Ação');
+INSERT INTO genero (idgenero, nomegenero) VALUES (2, 'Comédia');
+INSERT INTO genero (idgenero, nomegenero) VALUES (3, 'Terror');
+INSERT INTO admin (idadmin, loginadmin, senhaadmin) VALUES (1, '123', '123');

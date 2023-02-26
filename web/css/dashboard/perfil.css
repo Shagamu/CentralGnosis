@@ -1,0 +1,80 @@
+fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 40%;
+    margin: 10% auto;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+/*Hide all except first fieldset*/
+fieldset:not(:first-of-type) {
+    display: none;
+}
+/*inputs*/
+input, textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+    color: #2C3E50;
+    font-size: 15px;
+}
+
+/*buttons*/
+.action-button {
+    width: 100px;
+    background: #006494;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+    text-align: center;
+}
+.action-button:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #006494;
+}
+
+/*headings*/
+.fs-title {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+}
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+.none{
+    display:none;
+}
+
+.botao {
+    width: 100px;
+    background: #006494;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 22px;
+    margin: 10px 5px;
+    text-align: center;
+    text-decoration: none;
+}
+.botao:hover, #msform .botao:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #006494;
+}
